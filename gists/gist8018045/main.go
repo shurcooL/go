@@ -72,7 +72,7 @@ func getGoPackagesB(out chan<- ImportPathFound) {
 		}
 
 		_ = filepath.Walk(root, func(path string, fi os.FileInfo, _ error) error {
-			if !fi.IsDir() {
+			if fi == nil || !fi.IsDir() {
 				return nil
 			}
 			if strings.HasPrefix(fi.Name(), ".") {
@@ -128,7 +128,7 @@ func GetGopathGoPackages(out chan<- *GoPackage) {
 		}
 
 		_ = filepath.Walk(root, func(path string, fi os.FileInfo, _ error) error {
-			if !fi.IsDir() {
+			if fi == nil || !fi.IsDir() {
 				return nil
 			}
 			if strings.HasPrefix(fi.Name(), ".") {
