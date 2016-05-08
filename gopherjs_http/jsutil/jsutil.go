@@ -29,7 +29,7 @@ import (
 // 	func main() {
 // 		js.Global.Set("Handler", jsutil.Wrap(Handler))
 // 	}
-func jsWrap(fn interface{}) func(...*js.Object) {
+func Wrap(fn interface{}) func(...*js.Object) {
 	v := reflect.ValueOf(fn)
 	return func(args ...*js.Object) {
 		in := make([]reflect.Value, v.Type().NumIn())
