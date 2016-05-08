@@ -2,10 +2,10 @@
 package jsutil
 
 import (
-	"encoding/json"
-	"fmt"
+	"errors"
 	"reflect"
 
+	"github.com/kurrik/json"
 	"github.com/gopherjs/gopherjs/js"
 	"honnef.co/go/js/dom"
 )
@@ -29,7 +29,7 @@ import (
 // 	func main() {
 // 		js.Global.Set("Handler", jsutil.Wrap(Handler))
 // 	}
-func Wrap(fn interface{}) func(...*js.Object) {
+func jsWrap(fn interface{}) func(...*js.Object) {
 	v := reflect.ValueOf(fn)
 	return func(args ...*js.Object) {
 		in := make([]reflect.Value, v.Type().NumIn())
@@ -56,7 +56,7 @@ func Wrap(fn interface{}) func(...*js.Object) {
 				p := reflect.New(t)
 				err := json.Unmarshal([]byte(args[i].String()), p.Interface())
 				if err != nil {
-					panic(fmt.Errorf("jsutil: unmarshaling JSON failed: %v", err))
+					panic(errors.New("jsutil: unmarshaling JSON failed: " + err.Error()))
 				}
 				in[i] = reflect.Indirect(p)
 			}
