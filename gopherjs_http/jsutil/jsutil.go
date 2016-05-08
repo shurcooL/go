@@ -2,10 +2,10 @@
 package jsutil
 
 import (
+	"encoding/json"
 	"errors"
 	"reflect"
 
-	"github.com/kurrik/json"
 	"github.com/gopherjs/gopherjs/js"
 	"honnef.co/go/js/dom"
 )
