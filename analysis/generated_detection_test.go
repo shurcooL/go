@@ -18,11 +18,13 @@ func ExampleIsFileGenerated() {
 	fmt.Println(analysis.IsFileGenerated(cwd, "testdata/handcrafted_1.go.txt"))
 	fmt.Println(analysis.IsFileGenerated(cwd, "vendor/github.com/shurcooL/go/analysis/file.go"))
 	fmt.Println(analysis.IsFileGenerated(cwd, "subpkg/vendor/math/math.go"))
+	fmt.Println(analysis.IsFileGenerated(cwd, "pkg/templates_generated.go"))
 
 	// Output:
 	// true <nil>
 	// false <nil>
 	// false <nil>
+	// true <nil>
 	// true <nil>
 	// true <nil>
 }

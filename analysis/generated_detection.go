@@ -21,6 +21,8 @@ func IsFileGenerated(rootDir, name string) (bool, error) {
 		return true, nil
 	case strings.HasPrefix(name, "Godeps/"):
 		return true, nil
+	case strings.Contains(name, "generated"):
+		return true, nil
 	}
 
 	// Detect from file contents.
