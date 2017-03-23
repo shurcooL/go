@@ -62,9 +62,12 @@ func ParseFile(filename string) (hasGeneratedComment bool, err error) {
 // containsComment reports whether a line of Go source code s (without newline character)
 // contains the generated comment.
 func containsComment(s []byte) bool {
-	return len(s) >= smallestMatchingComment &&
-		bytes.HasPrefix(s, []byte("// Code generated ")) &&
-		bytes.HasSuffix(s, []byte(" DO NOT EDIT."))
+	return len(s) >= len(prefix)+len(suffix) &&
+		bytes.HasPrefix(s, prefix) &&
+		bytes.HasSuffix(s, suffix)
 }
 
-const smallestMatchingComment = len("// Code generated  DO NOT EDIT.")
+var (
+	prefix = []byte("// Code generated ")
+	suffix = []byte(" DO NOT EDIT.")
+)
