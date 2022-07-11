@@ -1,4 +1,4 @@
-// +build js
+//go:build js
 
 // Package jsutil provides utility functions for interacting with
 // native JavaScript APIs via syscall/js API.
