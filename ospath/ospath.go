@@ -1,4 +1,6 @@
 // Package ospath provides utilities to get OS-specific directories.
+//
+// Deprecated: Use package [os] instead.
 package ospath
 
 import (
@@ -16,6 +18,8 @@ import (
 // It's guaranteed to be a unique directory for the importPath.
 // Before returning the directory's path, CacheDir creates the directory if it
 // doesn't already exist, so it can be used right away.
+//
+// Deprecated: Use [os.UserCacheDir] instead.
 func CacheDir(importPath string) (string, error) {
 	var home string
 	if u, err := user.Current(); err != nil {
@@ -30,7 +34,7 @@ func CacheDir(importPath string) (string, error) {
 	//       Think about web? While HTML5 Local Storage could be used, it's not going to be compatible
 	//       with filepaths; so maybe consider returning a webdav.FileSystem or so instead? Needs consideration.
 	switch {
-	case runtime.GOOS == "darwin" && runtime.GOARCH == "amd64":
+	case runtime.GOOS == "darwin" && (runtime.GOARCH == "arm64" || runtime.GOARCH == "amd64"):
 		dir := filepath.Join(home, "Library", "Caches", filepath.FromSlash(importPath))
 		if err := os.MkdirAll(dir, 0700); err != nil {
 			return "", err
